@@ -418,7 +418,8 @@ class ApplicationCommand extends Base {
         command.descriptionLocalizations ?? command.description_localizations ?? {},
         this.descriptionLocalizations ?? {},
       ) ||
-      !isEqual(command.integrationTypes ?? command.integration_types ?? [0], this.integrationTypes ?? []) ||
+      // [0] is the default value sent by Discord
+      !isEqual(command.integrationTypes ?? command.integration_types ?? [0], this.integrationTypes ?? [0]) ||
       !isEqual(command.contexts ?? [], this.contexts ?? [])
     ) {
       return false;
