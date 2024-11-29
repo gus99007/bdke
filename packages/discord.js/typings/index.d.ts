@@ -411,6 +411,11 @@ export abstract class Application extends Base {
   public icon: string | null;
   public id: Snowflake;
   public name: string | null;
+  public termsOfServiceURL: string | null;
+  public privacyPolicyURL: string | null;
+  public rpcOrigins: string[];
+  public cover: string | null;
+  public verifyKey: string | null;
   public coverURL(options?: ImageURLOptions): string | null;
   public iconURL(options?: ImageURLOptions): string | null;
   public toJSON(): unknown;
@@ -1070,7 +1075,6 @@ export class ClientApplication extends Application {
   public subscriptions: SubscriptionManager;
   public guildId: Snowflake | null;
   public get guild(): Guild | null;
-  public cover: string | null;
   public flags: Readonly<ApplicationFlagsBitField>;
   public approximateGuildCount: number | null;
   public approximateUserInstallCount: number | null;
@@ -1082,7 +1086,6 @@ export class ClientApplication extends Application {
   public get partial(): boolean;
   public interactionsEndpointURL: string | null;
   public roleConnectionsVerificationURL: string | null;
-  public rpcOrigins: string[];
   public edit(options: ClientApplicationEditOptions): Promise<ClientApplication>;
   public fetch(): Promise<ClientApplication>;
   public fetchRoleConnectionMetadataRecords(): Promise<ApplicationRoleConnectionMetadata[]>;
@@ -1898,12 +1901,7 @@ export class Integration extends Base {
 export class IntegrationApplication extends Application {
   private constructor(client: Client<true>, data: RawIntegrationApplicationData);
   public bot: User | null;
-  public termsOfServiceURL: string | null;
-  public privacyPolicyURL: string | null;
-  public rpcOrigins: string[];
   public hook: boolean | null;
-  public cover: string | null;
-  public verifyKey: string | null;
 }
 
 export type GatewayIntentsString = keyof typeof GatewayIntentBits;
