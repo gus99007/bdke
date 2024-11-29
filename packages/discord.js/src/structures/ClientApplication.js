@@ -243,6 +243,36 @@ class ClientApplication extends Application {
       this.roleConnectionsVerificationURL ??= null;
     }
 
+    if ('event_webhooks_url' in data) {
+      /**
+       * This application's event webhooks URL
+       * @type {?string}
+       */
+      this.eventWebhooksURL = data.event_webhooks_url;
+    } else {
+      this.eventWebhooksURL ??= null;
+    }
+
+    if ('event_webhooks_status' in data) {
+      /**
+       * This application's event webhooks status
+       * @type {?ApplicationWebhookEventStatus}
+       */
+      this.eventWebhooksStatus = data.event_webhooks_status;
+    } else {
+      this.eventWebhooksStatus ??= null;
+    }
+
+    if ('event_webhooks_types' in data) {
+      /**
+       * This application's event webhooks types
+       * @type {?ApplicationWebhookEventType[]}
+       */
+      this.eventWebhooksTypes = data.event_webhooks_types;
+    } else {
+      this.eventWebhooksTypes ??= null;
+    }
+
     /**
      * The owner of this OAuth application
      * @type {?(User|Team)}
@@ -284,6 +314,9 @@ class ClientApplication extends Application {
    * @property {?(BufferResolvable|Base64Resolvable)} [icon] The application's icon
    * @property {?(BufferResolvable|Base64Resolvable)} [coverImage] The application's cover image
    * @property {string} [interactionsEndpointURL] The application's interaction endpoint URL
+   * @property {string} [eventWebhooksURL] The application's event webhooks URL
+   * @property {ApplicationWebhookEventStatus} [eventWebhooksStatus] The application's event webhooks status
+   * @property {ApplicationWebhookEventType[]} [eventWebhooksTypes] The application's event webhooks types
    * @property {string[]} [tags] The application's tags
    */
 
@@ -301,6 +334,9 @@ class ClientApplication extends Application {
     icon,
     coverImage,
     interactionsEndpointURL,
+    eventWebhooksURL,
+    eventWebhooksStatus,
+    eventWebhooksTypes,
     tags,
   } = {}) {
     const data = await this.client.rest.patch(Routes.currentApplication(), {
@@ -313,6 +349,9 @@ class ClientApplication extends Application {
         icon: icon && (await resolveImage(icon)),
         cover_image: coverImage && (await resolveImage(coverImage)),
         interactions_endpoint_url: interactionsEndpointURL,
+        event_webhooks_url: eventWebhooksURL,
+        event_webhooks_status: eventWebhooksStatus,
+        event_webhooks_types: eventWebhooksTypes,
         tags,
       },
     });
